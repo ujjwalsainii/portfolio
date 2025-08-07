@@ -1,199 +1,162 @@
-
+/* Base Reset */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    line-height: 1.6;
-    color: #333;
-    background-color: #f9f9f9;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: #000;
+  color: #fff;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
-.container {
-    max-width: 1100px;
-    margin: auto;
-    padding: 0 20px;
+h1, h2, h3 {
+  font-weight: 700;
+  letter-spacing: 0.5px;
 }
 
 a {
-    text-decoration: none;
-    color: #3498db;
+  color: #0af;
+  text-decoration: none;
+  transition: all 0.3s ease;
 }
 
-/* Header Styles */
-header {
-    background: #2c3e50;
-    color: #fff;
-    padding: 20px 0;
-    text-align: center;
+a:hover {
+  color: white;
 }
 
-header h1 {
-    font-size: 2.5rem;
-    margin-bottom: 10px;
+/* Hero */
+.hero {
+  height: 100vh;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.9), rgba(0,0,0,0.7));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
-header p {
-    font-size: 1.2rem;
-    opacity: 0.9;
+.hero h1 {
+  font-size: 4rem;
+  margin-bottom: 10px;
 }
 
-/* Navigation */
-nav {
-    background: #34495e;
-    padding: 10px 0;
+.hero p {
+  font-size: 1.3rem;
+  color: #ccc;
 }
 
-nav ul {
-    display: flex;
-    justify-content: center;
-    list-style: none;
+/* Section */
+.section {
+  padding: 80px 20px;
+  background-color: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  margin: 40px auto;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 1000px;
+  transition: transform 0.3s ease;
 }
 
-nav ul li {
-    margin: 0 15px;
+.section:hover {
+  transform: scale(1.01);
 }
 
-nav ul li a {
-    color: #fff;
-    font-weight: bold;
-    transition: color 0.3s;
-}
-
-nav ul li a:hover {
-    color: #3498db;
-}
-
-/* Section Styles */
-section {
-    padding: 50px 0;
-    border-bottom: 1px solid #eee;
-}
-
-section h2 {
-    text-align: center;
-    margin-bottom: 30px;
-    font-size: 2rem;
-    color: #2c3e50;
-}
-
-/* About Section */
-.about-content {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
-.profile-img {
-    flex: 1;
-    min-width: 300px;
-    text-align: center;
-}
-
-.profile-img img {
-    width: 250px;
-    height: 250px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 5px solid #2c3e50;
-}
-
-.bio {
-    flex: 2;
-    min-width: 300px;
-    padding: 0 20px;
+.section h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 30px;
 }
 
 /* Skills Section */
-.skills-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 20px;
 }
 
-.skill {
-    background: #3498db;
-    color: #fff;
-    padding: 10px 20px;
-    margin: 10px;
-    border-radius: 5px;
-    font-weight: bold;
+.skills span {
+  padding: 10px 20px;
+  border-radius: 999px;
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 1rem;
+  transition: all 0.3s ease;
 }
 
-/* Projects Section */
-.project {
-    background: #fff;
-    padding: 20px;
-    margin: 20px 0;
-    border-radius: 5px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+.skills span:hover {
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
-.project h3 {
-    margin-bottom: 10px;
-    color: #2c3e50;
+/* Resume Button */
+.resume-btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 12px 30px;
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #0af;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 999px;
+  font-weight: bold;
+  transition: all 0.3s ease;
 }
 
-/* Resume Section */
-.resume-link {
-    display: inline-block;
-    background: #2c3e50;
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 5px;
-    margin-top: 20px;
-    transition: background 0.3s;
+.resume-btn:hover {
+  color: #fff;
+  background-color: rgba(0, 170, 255, 0.2);
+  border-color: #0af;
 }
 
-.resume-link:hover {
-    background: #3498db;
+
+/* Projects */
+.projects {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
 }
 
-/* Contact Section */
-.contact-info {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+.card {
+  background-color: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 30px;
+  border-radius: 16px;
+  width: 300px;
+  transition: all 0.3s ease;
 }
 
-.contact-item {
-    margin: 10px;
-    text-align: center;
+.card:hover {
+  background-color: rgba(255,255,255,0.1);
+  transform: translateY(-5px);
 }
 
-.contact-item i {
-    font-size: 2rem;
-    margin-bottom: 10px;
-    color: #3498db;
+.card h3 {
+  margin-bottom: 10px;
 }
 
 /* Footer */
 footer {
-    background: #2c3e50;
-    color: #fff;
-    text-align: center;
-    padding: 20px 0;
+  padding: 30px;
+  text-align: center;
+  background-color: #000;
+  font-size: 0.9rem;
+  color: #777;
+}
+.profile-pic {
+  margin-top: 20px;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6);
+  transition: transform 0.3s ease;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-    .about-content {
-        flex-direction: column;
-    }
-    
-    .bio {
-        padding: 20px 0;
-    }
-    
-    nav ul {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    nav ul li {
-        margin: 5px 0;
-    }
+.profile-pic:hover {
+  transform: scale(1.05);
 }
