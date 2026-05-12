@@ -3,128 +3,650 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Ujjwal Saini | Portfolio</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Ujjwal Saini | Python & AI Backend Developer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:       #0a0a0f;
+      --surface:  #111118;
+      --card:     #16161f;
+      --border:   #2a2a3a;
+      --accent:   #00e5ff;
+      --accent2:  #7b61ff;
+      --green:    #00ffa3;
+      --text:     #e8e8f0;
+      --muted:    #7a7a9a;
+      --mono:     'Space Mono', monospace;
+      --sans:     'Syne', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── Noise overlay ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    /* ── Navbar ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: center;
+      padding: 18px 0;
+      background: rgba(10,10,15,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    nav ul { display: flex; gap: 36px; list-style: none; }
+    nav a {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      text-decoration: none;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: var(--accent); }
+
+    /* ── Hero ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-glow {
+      position: absolute; top: 20%; left: 50%;
+      transform: translateX(-50%);
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(0,229,255,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-content { position: relative; z-index: 1; max-width: 700px; }
+    .hero-tag {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border: 1px solid rgba(0,229,255,0.3);
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 24px;
+      animation: fadeUp 0.6s ease both;
+    }
+    .hero h1 {
+      font-size: clamp(3rem, 8vw, 5.5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      background: linear-gradient(135deg, #fff 0%, var(--accent) 60%, var(--accent2) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+    .hero-sub {
+      margin-top: 20px;
+      font-family: var(--mono);
+      font-size: 0.95rem;
+      color: var(--muted);
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+    .hero-sub span { color: var(--green); }
+    .hero-btns {
+      margin-top: 36px;
+      display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+      animation: fadeUp 0.6s 0.3s ease both;
+    }
+    .btn {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 13px 28px;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg);
+      font-weight: 700;
+    }
+    .btn-primary:hover { background: #fff; transform: translateY(-2px); }
+    .btn-outline {
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+    /* ── Sections ── */
+    section { position: relative; z-index: 1; }
+    .container { max-width: 900px; margin: 0 auto; padding: 80px 24px; }
+
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    h2 {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 40px;
+      color: var(--text);
+    }
+    h2 .dim { color: var(--muted); font-weight: 400; }
+
+    /* ── About ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+    .about-text p { color: var(--muted); font-size: 0.97rem; margin-bottom: 16px; }
+    .about-text p strong { color: var(--text); }
+    .about-stats {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+    }
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+    }
+    .stat-num {
+      font-family: var(--mono);
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .stat-label { font-size: 0.78rem; color: var(--muted); }
+
+    @media (max-width: 640px) {
+      .about-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── Skills ── */
+    #skills { background: var(--surface); }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .skill-group {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px 24px;
+      transition: border-color 0.2s;
+    }
+    .skill-group:hover { border-color: rgba(0,229,255,0.4); }
+    .skill-group-label {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .skill-tag {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--text);
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      border-radius: 4px;
+    }
+
+    /* ── Experience ── */
+    .exp-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 8px 8px 0;
+      padding: 24px 28px;
+      margin-bottom: 16px;
+      transition: border-color 0.2s;
+    }
+    .exp-item:hover { border-left-color: var(--green); }
+    .exp-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
+    .exp-title { font-weight: 600; font-size: 1rem; color: var(--text); }
+    .exp-company { color: var(--accent); font-size: 0.9rem; }
+    .exp-date {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--muted);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+    .exp-desc { color: var(--muted); font-size: 0.9rem; }
+
+    /* ── Projects ── */
+    #projects { background: var(--surface); }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      gap: 20px;
+    }
+    .project-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 28px;
+      transition: all 0.25s;
+      display: flex; flex-direction: column;
+    }
+    .project-card:hover {
+      border-color: rgba(0,229,255,0.4);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+    }
+    .project-card.featured { border-color: rgba(0,229,255,0.25); }
+    .project-badge {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--bg);
+      background: var(--accent);
+      padding: 3px 8px;
+      border-radius: 3px;
+      margin-bottom: 14px;
+      width: fit-content;
+    }
+    .project-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+    .project-card p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      flex: 1;
+      margin-bottom: 20px;
+    }
+    .project-card ul {
+      list-style: none;
+      margin-bottom: 20px;
+    }
+    .project-card ul li {
+      font-size: 0.83rem;
+      color: var(--muted);
+      padding: 3px 0;
+      padding-left: 16px;
+      position: relative;
+    }
+    .project-card ul li::before {
+      content: '→';
+      position: absolute; left: 0;
+      color: var(--accent);
+      font-size: 0.75rem;
+    }
+    .project-footer {
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;
+      margin-top: auto;
+    }
+    .tech-stack { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tech-pill {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--accent);
+      border: 1px solid rgba(0,229,255,0.25);
+      padding: 2px 8px;
+      border-radius: 3px;
+    }
+    .project-link {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+    .project-link:hover { color: var(--accent); }
+
+    @media (max-width: 640px) {
+      .projects-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── Resume ── */
+    .resume-section {
+      text-align: center;
+      padding: 80px 24px;
+    }
+    .resume-section p { color: var(--muted); margin-bottom: 28px; font-size: 0.95rem; }
+
+    /* ── Contact ── */
+    #contact { background: var(--surface); }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
+    }
+    .contact-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px 24px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .contact-item:hover { border-color: rgba(0,229,255,0.4); transform: translateY(-2px); }
+    .contact-type {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+    .contact-value { font-size: 0.9rem; color: var(--text); word-break: break-all; }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 32px 24px;
+      border-top: 1px solid var(--border);
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+
+    /* ── Animations ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
 </head>
 <body>
 
-    <!-- Navbar -->
-<nav class="navbar">
+<!-- Navbar -->
+<nav>
   <ul>
     <li><a href="#home">Home</a></li>
     <li><a href="#about">About</a></li>
-    <li><a href="#experience">Experience</a></li>
     <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
     <li><a href="#projects">Projects</a></li>
-    <li><a href="#Resume">Resume</a></li>
+    <li><a href="#resume">Resume</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
 
-
-
- <!-- Hero Section -->
+<!-- Hero -->
 <section id="home" class="hero">
-     <div class="blur-bg"></div> <!--blurred background-->
-  <div class="content">
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Available for Internships</div>
     <h1>Ujjwal Saini</h1>
-    <p>Aspiring Data scientist | AI ML developer </p>
-    <img src="profile.JPG" alt="Ujjwal Saini" class="profile-pic" />
+    <p class="hero-sub">
+      Python Developer &nbsp;·&nbsp; <span>AI Backend</span> &nbsp;·&nbsp; LLM Integration
+    </p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn btn-primary">View Projects</a>
+      <a href="#contact" class="btn btn-outline">Get in Touch</a>
+    </div>
   </div>
 </section>
 
-
-  <!-- About Section -->
-  <section id="about" class="section">
-    <div class="container">
-      <h2>About Me</h2>
-      <p> 👋 I'm Ujjwal Saini — a Computer Science (Diploma) student at 
-Galgotias University passionate about building real-world 
-applications using Python and front-end technologies.
-
-I recently completed a front-end internship at CodSoft where 
-I built a portfolio, landing page and calculator using 
-HTML, CSS and JavaScript.
-
-Currently learning Python, OOPs, File Handling and Data Science 
-fundamentals — building projects like a Student Result Analyzer 
-and Expense Tracker from scratch.
-
-⚡ State-level boxer — discipline and consistency define me
-🎯 Open to internships and junior developer roles
-🤖 Let's connect!</p>
-    </div>
-  </section>
-
-   <!-- Experience Section -->
-<section id="experience" class="section">
+<!-- About -->
+<section id="about">
   <div class="container">
-    <h2>Experience</h2>
-    <div class="experience">
-      <p><strong>Frontend Developer Intern</strong> at CodSoft (July 2025)</p>
-      <p><strong>AI & Data Science Trainee</strong> at CodeWithHarry (6 Months)</p>
+    <div class="section-label">// About</div>
+    <h2>Building real things <span class="dim">with Python & AI</span></h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          I'm a <strong>Computer Science (Diploma) student at Galgotias University</strong>,
+          focused on building AI-powered backend systems using Python, FastAPI, Flask, and LLM APIs.
+        </p>
+        <p>
+          Most recently I built an <strong>SHL Assessment Recommender AI Bot</strong> — a
+          stateless conversational agent that uses Groq's LLM API to recommend talent assessments
+          from a structured catalog, with hallucination prevention and multi-turn conversation handling.
+        </p>
+        <p>
+          ⚡ <strong>State-level boxer</strong> — discipline and consistency define everything I do.<br/>
+          🎯 Open to Python / AI Backend internships — on-site preferred.
+        </p>
+      </div>
+      <div class="about-stats">
+        <div class="stat-card">
+          <div class="stat-num">3+</div>
+          <div class="stat-label">Backend & AI Projects</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">1</div>
+          <div class="stat-label">Internship Completed</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">2</div>
+          <div class="stat-label">Frameworks (Flask, FastAPI)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">2026</div>
+          <div class="stat-label">Graduation Year</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-
-  <!-- Skills Section -->
-  <section id="skills" class="section">
-    <div class="container">
-      <h2>Skills</h2>
-      <div class="skills">
-        <span>HTML5</span>
-        <span>CSS3</span>
-        <span>JavaScript</span>
-        <span>Python</span>
-        <span>Git & GitHub</span>
-        <span>Responsive Design</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- Projects Section -->
-  <section id="projects" class="section">
-    <div class="container">
-      <h2>Projects</h2>
-      <div class="projects">
-        <div class="card">
-          <h3>JavaScript Calculator</h3>
-          <p>Basic calculator using HTML/CSS/JS.</p>
-          <a href="https://ujjwalsainii.github.io/basic-calculator/" target="_blank">View →</a>
-        </div>
-        <div class="card">
-          <h3>Landing Page</h3>
-          <p>Responsive landing page for a tech internship demo.</p>
-          <a href="https://ujjwalsainii.github.io/landing-page-demo/" target="_blank">View →</a>
+<!-- Skills -->
+<section id="skills">
+  <div class="container">
+    <div class="section-label">// Skills</div>
+    <h2>Tech Stack</h2>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <div class="skill-group-label">Languages</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">HTML5</span>
+          <span class="skill-tag">CSS3</span>
         </div>
       </div>
+      <div class="skill-group">
+        <div class="skill-group-label">Frameworks</div>
+        <div class="skill-tags">
+          <span class="skill-tag">FastAPI</span>
+          <span class="skill-tag">Flask</span>
+          <span class="skill-tag">Pydantic</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-label">AI / LLM</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Groq API</span>
+          <span class="skill-tag">LLM Integration</span>
+          <span class="skill-tag">Prompt Engineering</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-label">Tools</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Git</span>
+          <span class="skill-tag">GitHub</span>
+          <span class="skill-tag">VS Code</span>
+        </div>
+      </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Resume Section -->
-  <section id="Resume" class="section">
-    <div class="container">
-      <h2>Resume</h2>
-      <p>Download my resume for more details about my skills and work.</p>
-      <a href="Resume.pdf" download class="resume-btn">Download Resume</a>
+<!-- Experience -->
+<section id="experience">
+  <div class="container">
+    <div class="section-label">// Experience</div>
+    <h2>Work Experience</h2>
+
+    <div class="exp-item">
+      <div class="exp-header">
+        <div>
+          <div class="exp-title">Front-End Development Intern</div>
+          <div class="exp-company">CodSoft</div>
+        </div>
+        <div class="exp-date">July 2024</div>
+      </div>
+      <div class="exp-desc">
+        Built and deployed web projects using HTML and CSS. Practised real-world Git
+        version-control workflows and met structured delivery deadlines.
+      </div>
     </div>
-  </section>
 
-  <!-- Contact Section -->
-  <section id="contact" class="section">
-    <div class="container">
-      <h2>Contact Me</h2>
-      <p>Email: <a href="mailto:sainiujjwal888@gmail.com">sainiujjwal888@gmail.com</a></p>
-      <p>Phone: +91 7983418488</p>
-      <p>LinkedIn: <a href="https://www.linkedin.com/in/ujjwal-saini-9a9269297/" target="_blank">linkedin.com/in/ujjwalsaini</a></p>
+    <div class="exp-item">
+      <div class="exp-header">
+        <div>
+          <div class="exp-title">AI & Data Science — Structured Course</div>
+          <div class="exp-company">Code With Harry (Paid)</div>
+        </div>
+        <div class="exp-date">Ongoing</div>
+      </div>
+      <div class="exp-desc">
+        Enrolled in a structured, paid course covering ML fundamentals, Python for data science,
+        and AI application development.
+      </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Footer -->
-  <footer>
-    <p>© 2025 Ujjwal Saini</p>
-  </footer>
+<!-- Projects -->
+<section id="projects">
+  <div class="container">
+    <div class="section-label">// Projects</div>
+    <h2>What I've Built</h2>
+    <div class="projects-grid">
+
+      <div class="project-card featured">
+        <div class="project-badge">Featured</div>
+        <h3>SHL Assessment Recommender AI Bot</h3>
+        <ul>
+          <li>Stateless conversational AI agent via FastAPI using Groq LLM (llama-3.3-70b)</li>
+          <li>Keyword-boost retrieval to pre-filter catalog before LLM inference</li>
+          <li>Hallucination prevention — every recommendation validated against real catalog URLs</li>
+          <li>Multi-turn conversation handling (8 turns) with Pydantic models & CORS</li>
+        </ul>
+        <div class="project-footer">
+          <div class="tech-stack">
+            <span class="tech-pill">Python</span>
+            <span class="tech-pill">FastAPI</span>
+            <span class="tech-pill">Groq API</span>
+            <span class="tech-pill">LLM</span>
+          </div>
+          <a href="https://github.com/ujjwalsainii/SHL-Recommend-AI-BOT" target="_blank" class="project-link">GitHub →</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <h3>Jobez — Job Portal Web App</h3>
+        <ul>
+          <li>Full-stack job portal with dual roles: candidates & employers</li>
+          <li>Flask-Login auth with hashed passwords, sessions, role-based access</li>
+          <li>Secure resume upload with file validation & employer-only download</li>
+          <li>Relational database managing users, jobs, and applications</li>
+        </ul>
+        <div class="project-footer">
+          <div class="tech-stack">
+            <span class="tech-pill">Python</span>
+            <span class="tech-pill">Flask</span>
+            <span class="tech-pill">SQLite</span>
+            <span class="tech-pill">HTML/CSS</span>
+          </div>
+          <a href="https://github.com/ujjwalsainii" target="_blank" class="project-link">GitHub →</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <h3>Drink Water Reminder App</h3>
+        <p>
+          Python automation tool delivering timed Windows desktop notifications via the
+          plyer library — demonstrates scheduling logic, OS-level integration, and
+          background-process design.
+        </p>
+        <div class="project-footer">
+          <div class="tech-stack">
+            <span class="tech-pill">Python</span>
+            <span class="tech-pill">plyer</span>
+            <span class="tech-pill">Automation</span>
+          </div>
+          <a href="https://github.com/ujjwalsainii" target="_blank" class="project-link">GitHub →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Resume -->
+<section id="resume">
+  <div class="container resume-section">
+    <div class="section-label">// Resume</div>
+    <h2>Download Resume</h2>
+    <p>Full details on my skills, projects, and experience.</p>
+    <a href="Resume.pdf" download class="btn btn-primary">Download Resume PDF</a>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact">
+  <div class="container">
+    <div class="section-label">// Contact</div>
+    <h2>Get In Touch</h2>
+    <div class="contact-grid">
+      <a href="mailto:sainiujjwal888@gmail.com" class="contact-item">
+        <div class="contact-type">Email</div>
+        <div class="contact-value">sainiujjwal888@gmail.com</div>
+      </a>
+      <a href="tel:+917983418488" class="contact-item">
+        <div class="contact-type">Phone</div>
+        <div class="contact-value">+91 7983418488</div>
+      </a>
+      <a href="https://github.com/ujjwalsainii" target="_blank" class="contact-item">
+        <div class="contact-type">GitHub</div>
+        <div class="contact-value">github.com/ujjwalsainii</div>
+      </a>
+      <a href="https://www.linkedin.com/in/ujjwal-saini-9a9269297/" target="_blank" class="contact-item">
+        <div class="contact-type">LinkedIn</div>
+        <div class="contact-value">linkedin.com/in/ujjwalsainii</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <p>© 2025 Ujjwal Saini &nbsp;·&nbsp; Built with focus.</p>
+</footer>
 
 </body>
 </html>
